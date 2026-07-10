@@ -4,7 +4,7 @@
 
 Confusing-Words-Vocab-skill (installed and invoked as `vocab`) is a Claude Code skill that captures the terms you didn't know — written as **your own final understanding**, not dictionary copy-paste — into a plain markdown file, and republishes the whole glossary as a single web page (Claude Artifact) whose **URL never changes**. Bookmark it once on your phone; it keeps growing across every session.
 
-<!-- screenshot: glossary artifact page (light/dark) -->
+![vocab glossary page — searchable term cards with highlighter marks, subject filters, and a "confused only" review filter](docs/screenshot.png)
 
 ## Why "my understanding" instead of definitions?
 
