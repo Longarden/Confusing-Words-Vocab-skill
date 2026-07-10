@@ -50,7 +50,7 @@ Default: republish the Artifact (Step C) AND print a short table (term × subjec
    - Body: term cards (term, subject tag, date, definition, my-understanding, example; confusion as a warning callout; `related` links as plain text chips).
    - The visible entry count must reflect the current filter (e.g. "3/12 terms") and be announced to screen readers (aria-live).
    - Escape `</` sequences inside embedded JS data (write `<\/`) so store content can never break out of the script block. Apply `overflow-wrap: anywhere` on cards so long tokens (URLs, identifiers) cannot force horizontal scroll.
-   - No external resources (CSP), light/dark theme support. A sort toggle (alphabetical/recent) is optional.
+   - No external resources (CSP). Theme: a single light (white) theme is a fine default — if you support dark mode too, verify text-over-highlight contrast in BOTH themes (a half-height highlighter mark behind dark text becomes unreadable on dark backgrounds). A sort toggle (alphabetical/recent) is optional.
    - Write UI strings in the store's dominant language.
 3. Always write the HTML to `artifactHtmlPath` (same path every time).
 4. **URL persistence is mandatory**: if `artifactUrl` exists in config, pass it as the `url` parameter of the Artifact tool — republishing from a different conversation WITHOUT `url` mints a brand-new URL. After the first publish, save the returned URL into config before the recap.
