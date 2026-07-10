@@ -7,3 +7,4 @@ vocab-glossary.html
 # local state
 .omc/
 .venv/
+.claude/

@@ -1,6 +1,6 @@
 ---
 name: vocab
-description: Personal concept glossary — captures terms you didn't know, written in YOUR OWN understanding (not dictionary copy-paste), into a markdown store, and republishes the whole glossary as a fixed-URL Artifact page. Triggers on "add to my vocab", "vocab this", "add this term to my glossary", "show my vocab", "단어장에 추가해", "몰랐던 용어 정리해", "단어장 보여줘", "/vocab".
+description: Personal concept glossary — captures terms you didn't know, written in YOUR OWN understanding (not dictionary copy-paste), into a markdown store, and republishes the whole glossary as a fixed-URL Artifact page. Triggers on "add to my vocab", "vocab this", "add this term to my glossary", "show my vocab", "단어장에 추가해", "몰랐던 용어 정리해", "단어장 보여줘", "/vocab". Also load this skill when the user has just learned a new concept or term in conversation, to offer saving it to their glossary.
 ---
 
 # vocab — a glossary of what *you* didn't know, in your own words
@@ -29,25 +29,27 @@ Besides explicit calls, **offer proactively**: when the user asks about a concep
 ### A. Add ("add to my vocab", "단어장에 추가해")
 
 1. Resolve `storePath` from config (first-run flow above).
-2. Extract from the current session: **concept/terminology questions only** (skip code-implementation Q&A). Per entry:
+2. Scope: if the user names specific term(s) ("add X to my vocab"), add only those; otherwise scan the whole session. Extract **concept/terminology questions only** (skip code-implementation Q&A). Per entry:
    - **definition**: one textbook-style sentence — concise and accurate.
    - **my-understanding**: the user's own words first — if the user reconstructed it ("so it's basically ~, right?"), use that sentence. If they never restated it, Claude writes it and appends `(summarized)` (Korean: `(요약)`).
    - **example**: one concrete example; prefer one that actually came up in the session over a generic one.
    - **confusion**: what the user misunderstood or struggled with, if anything (works as an error-notebook). Omit the field entirely when none.
-3. Append to the store using the entry format below. **Duplicate/synonym terms: merge into the existing entry** — replace my-understanding with the latest understanding, update the date, and remove a previous confusion if this session resolved it (keep if not).
+3. Append to the store using the entry format below. **Duplicate/synonym terms: merge into the existing entry** — replace my-understanding with the latest understanding, update the date, and remove a previous confusion if this session resolved it (keep if not). Duplicates = same term, spelling variants, translations, or obvious synonyms of an existing entry; when unsure whether two terms are the same concept, ask the user instead of guessing. For `subject`, reuse an existing subject from the store whenever one fits — invent a new slug only for a genuinely new area (prevents tag fragmentation that degrades the filter).
 4. Republish the Artifact (Step C).
 5. Recap in chat: store absolute path + added/updated terms + Artifact URL.
 
 ### B. Show ("show my vocab", "단어장 보여줘")
 
-Read the store and republish the Artifact, or print a summary table in the terminal.
+Default: republish the Artifact (Step C) AND print a short table (term × subject × date) in the terminal. Skip the republish only if the user asks for a terminal-only view.
 
 ### C. Artifact republish
 
 1. Load the `artifact-design` skill first if it is available; skip the load (do not fail) if it is not.
 2. Parse the whole store and generate a single self-contained HTML glossary page:
    - Top: live search input (filters across term, definition, my-understanding, example, confusion) + subject filter chips + a "⚠ confused only" filter.
-   - Body: term cards (term, subject tag, date, definition, my-understanding, example; confusion as a warning callout).
+   - Body: term cards (term, subject tag, date, definition, my-understanding, example; confusion as a warning callout; `related` links as plain text chips).
+   - The visible entry count must reflect the current filter (e.g. "3/12 terms") and be announced to screen readers (aria-live).
+   - Escape `</` sequences inside embedded JS data (write `<\/`) so store content can never break out of the script block. Apply `overflow-wrap: anywhere` on cards so long tokens (URLs, identifiers) cannot force horizontal scroll.
    - No external resources (CSP), light/dark theme support. A sort toggle (alphabetical/recent) is optional.
    - Write UI strings in the store's dominant language.
 3. Always write the HTML to `artifactHtmlPath` (same path every time).

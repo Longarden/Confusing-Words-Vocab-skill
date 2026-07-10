@@ -1,8 +1,8 @@
-# 📖 vocab — a glossary of what *you* didn't know, in your own words
+# 📖 Confusing-Words-Vocab-skill — a glossary of what *you* didn't know, in your own words
 
 **Concepts you learn in AI conversations evaporate when the session ends.**
 
-vocab is a Claude Code skill that captures the terms you didn't know — written as **your own final understanding**, not dictionary copy-paste — into a plain markdown file, and republishes the whole glossary as a single web page (Claude Artifact) whose **URL never changes**. Bookmark it once on your phone; it keeps growing across every session.
+Confusing-Words-Vocab-skill (installed and invoked as `vocab`) is a Claude Code skill that captures the terms you didn't know — written as **your own final understanding**, not dictionary copy-paste — into a plain markdown file, and republishes the whole glossary as a single web page (Claude Artifact) whose **URL never changes**. Bookmark it once on your phone; it keeps growing across every session.
 
 <!-- screenshot: glossary artifact page (light/dark) -->
 
@@ -22,7 +22,7 @@ The generation effect: definitions you reconstruct in your own words stick far b
 
 ```bash
 cd ~/.claude/skills
-git clone https://github.com/Longarden/vocab-skill vocab
+git clone https://github.com/Longarden/Confusing-Words-Vocab-skill vocab
 ```
 
 That's it. Open Claude Code and say **"add this to my vocab"** after learning something.
@@ -90,7 +90,7 @@ AI한테 배운 개념, 세션 끝나면 증발하죠. vocab은 **몰랐던 용�
 
 ```bash
 cd ~/.claude/skills
-git clone https://github.com/Longarden/vocab-skill vocab
+git clone https://github.com/Longarden/Confusing-Words-Vocab-skill vocab
 ```
 
 - **"단어장에 추가해"** — 이 세션에서 몰랐던 개념을 추출해 저장 + 페이지 갱신
