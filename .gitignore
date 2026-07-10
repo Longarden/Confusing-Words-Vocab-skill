@@ -1,0 +1,9 @@
+# personal config (paths, artifact URL)
+config.json
+
+# generated output (contains personal study data)
+vocab-glossary.html
+
+# local state
+.omc/
+.venv/
